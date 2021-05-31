@@ -8,6 +8,7 @@ import { FlowContext } from './Context';
 import { Button } from 'antd';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import FlowBranchNode from './nodes/FlowBranchNode';
+import EditPanel from './panel/EditPanel';
 
 import './index.less';
 
@@ -66,6 +67,7 @@ const YsFlow = observer(() => {
       <div className="flow-editor">
         {/* 工具条 */}
         <div className="flow-editor-toolbar">
+          <Button type="link">查看XML</Button>
           <Button
             icon={<MinusOutlined />}
             disabled={state.scale <= 0.5}
@@ -85,6 +87,14 @@ const YsFlow = observer(() => {
         <div className="flow-editor-view" style={scaleStyle}>
           {flowStore && <FlowBranchNode node={flowStore.rootNode}></FlowBranchNode>}
         </div>
+
+        <EditPanel
+          visible={state.showEdit}
+          node={state.editNode}
+          onClose={() => {
+            state.showEdit = false;
+          }}
+        ></EditPanel>
       </div>
     </FlowContext.Provider>
   );

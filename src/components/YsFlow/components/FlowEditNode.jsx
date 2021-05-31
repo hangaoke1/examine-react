@@ -73,7 +73,7 @@ function FlowEditNode(props) {
 
         {showDeleteModal && (
           <div className="close-modal">
-            <Button size="small" onClick={deleteCancel}>
+            <Button size="small" onClick={deleteCancel} style={{ marginRight: 5 }}>
               取消
             </Button>
             <Button size="small" type="primary" danger onClick={deleteConfirm}>

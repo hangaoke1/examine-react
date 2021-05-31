@@ -17,7 +17,7 @@ function AddNodeBtn(props) {
   );
   return (
     <div className="add-node-btn">
-      <Dropdown overlay={menu} trigger={['click']}>
+      <Dropdown overlay={menu} trigger={['click']} transitionName="">
         <div className="add-node-reference">
           <PlusOutlined />
         </div>

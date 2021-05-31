@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import xmlConvert from 'xml-js-pro';
 import { outputBranch } from './outputBranch';
 import { encodeXMLAttr } from './utils';
-import { makeAutoObservable, observable, autorun } from 'mobx';
+import { makeAutoObservable, toJS } from 'mobx';
 
 export default class FlowEditorStore {
   constructor({ rootNode } = {}) {
@@ -50,7 +50,7 @@ export default class FlowEditorStore {
       },
     };
 
-    outputBranch(result, this.rootNode);
+    outputBranch(result, toJS(this.rootNode));
 
     console.log(`[debug] result`, result);
 
