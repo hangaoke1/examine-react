@@ -5,10 +5,13 @@ import { resolve } from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/examine-react/',
-  plugins: [reactRefresh()],
+  build: {
+    assetsDir: '',
+  },
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
     },
   },
+  plugins: [reactRefresh()],
 });
