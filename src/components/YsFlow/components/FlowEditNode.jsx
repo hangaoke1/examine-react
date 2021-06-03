@@ -47,6 +47,10 @@ function FlowEditNode(props) {
     e.stopPropagation();
     setShowDeleteModal(false);
   };
+
+  const closeModalClick = e => {
+    e.stopPropagation();
+  }
   return (
     <div className="flow-editor-node">
       <div
@@ -75,7 +79,7 @@ function FlowEditNode(props) {
         {closeable && <CloseOutlined className="close-btn" onClick={deleteClick} />}
 
         {showDeleteModal && (
-          <div className="close-modal">
+          <div className="close-modal" onClick={closeModalClick}>
             <Button size="small" onClick={deleteCancel} style={{ marginRight: 5 }}>
               取消
             </Button>
