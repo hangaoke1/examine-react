@@ -5,10 +5,11 @@ import { observer } from 'mobx-react-lite';
 import { FlowContext } from '../Context';
 
 import FlowRouteNode from './FlowRouteNode';
+import FlowConditionNode from './FlowConditionNode';
 import FlowEditNode from '../components/FlowEditNode';
 
 const FlowBranchNode = props => {
-  const { node } = props;
+  const { node, branchIndex, branchCount } = props;
   const flowStore = useContext(FlowContext);
 
   const handleAddBranch = node => {
@@ -52,6 +53,25 @@ const FlowBranchNode = props => {
                 }}
               ></FlowRouteNode>
             );
+          } else if (childNode.type === 'CONDITION') {
+            return (
+              <FlowConditionNode
+                key={childNode.id}
+                node={childNode}
+                className={childNode.type}
+                title={childNode.data.name}
+                bgColor={backgroundMap[childNode.type]}
+                branchIndex={branchIndex}
+                branchCount={branchCount}
+                closeable={!childNode.data.isDefault}
+                onAdd={type => {
+                  handleAdd(childNode, type);
+                }}
+                onDelete={() => {
+                  handleDelete(childNode);
+                }}
+              ></FlowConditionNode>
+            );
           } else {
             return (
               <FlowEditNode
@@ -60,7 +80,7 @@ const FlowBranchNode = props => {
                 className={childNode.type}
                 title={childNode.data.name}
                 bgColor={backgroundMap[childNode.type]}
-                closeable={!['START', 'END'].includes(childNode.type) && !childNode.data.isDefault}
+                closeable={!['START', 'END'].includes(childNode.type)}
                 onAdd={type => {
                   handleAdd(childNode, type);
                 }}
@@ -81,6 +101,8 @@ const FlowBranchNode = props => {
 
 FlowBranchNode.propTypes = {
   node: PropTypes.object,
+  branchIndex: PropTypes.number,
+  branchCount: PropTypes.number,
 };
 
 export default observer(FlowBranchNode);

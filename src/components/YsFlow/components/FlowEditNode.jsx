@@ -30,18 +30,21 @@ function FlowEditNode(props) {
     }
   };
 
-  const deleteClick = () => {
+  const deleteClick = e => {
+    e.stopPropagation();
     setShowDeleteModal(true);
   };
 
-  const deleteConfirm = () => {
+  const deleteConfirm = e => {
+    e.stopPropagation();
     if (props.onDelete) {
       props.onDelete();
     }
     setShowDeleteModal(false);
   };
 
-  const deleteCancel = () => {
+  const deleteCancel = e => {
+    e.stopPropagation();
     setShowDeleteModal(false);
   };
   return (

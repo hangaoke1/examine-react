@@ -216,6 +216,36 @@
         cursor: pointer;
         transition: box-shadow 0.3s ease;
 
+        .arrow-left {
+          display: none;
+          position: absolute;
+          left: 0;
+          top: 50%;
+          font-size: 20px;
+          transform: translate(-100%, -50%);
+        }
+
+        .arrow-right {
+          display: none;
+          position: absolute;
+          right: 0;
+          top: 50%;
+          font-size: 20px;
+          transform: translate(100%, -50%);
+        }
+
+        &:hover {
+          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.3);
+
+          .arrow-left {
+            display: block;
+          }
+
+          .arrow-right {
+            display: block;
+          }
+        }
+
         .close-btn {
           position: absolute;
           top: 5px;
