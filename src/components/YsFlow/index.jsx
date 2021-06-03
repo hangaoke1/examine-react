@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { useReactive } from 'ahooks';
 import eventbus from '@/lib/eventbus';
@@ -22,6 +23,8 @@ const YsFlow = observer(() => {
     editNode: null, // 编辑节点
     showXml: false,
     xmlContent: '',
+    showJson: false,
+    jsonContent: '',
   });
 
   /**
@@ -30,6 +33,14 @@ const YsFlow = observer(() => {
   const previewXML = () => {
     state.showXml = true;
     state.xmlContent = flowStore.buildXML();
+  };
+
+  /**
+   * 预览json
+   */
+  const previewJSON = () => {
+    state.showJson = true;
+    state.jsonContent = JSON.stringify(toJS(flowStore.rootNode), null, 2);
   };
 
   /**
@@ -71,7 +82,10 @@ const YsFlow = observer(() => {
       <div className="flow-editor">
         {/* 工具条 */}
         <div className="flow-editor-toolbar">
-          <Button type="link" onClick={previewXML}>
+          <Button style={{ padding: '4px 5px'}} type="link" onClick={previewJSON}>
+            查看JSON
+          </Button>
+          <Button style={{ padding: '4px 5px'}} type="link" onClick={previewXML}>
             查看XML
           </Button>
           <Button
@@ -120,6 +134,27 @@ const YsFlow = observer(() => {
             language="xml"
             theme="vs-dark"
             value={state.xmlContent}
+          />
+        </Modal>
+
+        <Modal
+          title="JSON数据预览"
+          visible={state.showJson}
+          width="1000px"
+          height="600px"
+          onOk={() => {
+            state.showJson = false;
+          }}
+          onCancel={() => {
+            state.showJson = false;
+          }}
+        >
+          <MonacoEditor
+            width="950"
+            height="600"
+            language="json"
+            theme="vs-dark"
+            value={state.jsonContent}
           />
         </Modal>
       </div>
