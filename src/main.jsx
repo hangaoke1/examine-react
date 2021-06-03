@@ -4,9 +4,4 @@ import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import './index.css';
 import App from './App';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root'),
-);
+ReactDOM.render(<App />, document.getElementById('root'));

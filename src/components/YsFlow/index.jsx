@@ -5,7 +5,8 @@ import eventbus from '@/lib/eventbus';
 import FlowEditorStore from '@/lib/flow';
 import { FlowContext } from './Context';
 
-import { Button } from 'antd';
+import { Button, Modal } from 'antd';
+import MonacoEditor from 'react-monaco-editor';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import FlowBranchNode from './nodes/FlowBranchNode';
 import EditPanel from './panel/EditPanel';
@@ -26,7 +27,10 @@ const YsFlow = observer(() => {
   /**
    * 预览xml
    */
-  const previewXML = () => {};
+  const previewXML = () => {
+    state.showXml = true;
+    state.xmlContent = flowStore.buildXML();
+  };
 
   /**
    * 编辑节点
@@ -67,7 +71,9 @@ const YsFlow = observer(() => {
       <div className="flow-editor">
         {/* 工具条 */}
         <div className="flow-editor-toolbar">
-          <Button type="link">查看XML</Button>
+          <Button type="link" onClick={previewXML}>
+            查看XML
+          </Button>
           <Button
             icon={<MinusOutlined />}
             disabled={state.scale <= 0.5}
@@ -95,6 +101,27 @@ const YsFlow = observer(() => {
             state.showEdit = false;
           }}
         ></EditPanel>
+
+        <Modal
+          title="XML数据预览"
+          visible={state.showXml}
+          width="1000px"
+          height="600px"
+          onOk={() => {
+            state.showXml = false;
+          }}
+          onCancel={() => {
+            state.showXml = false;
+          }}
+        >
+          <MonacoEditor
+            width="950"
+            height="600"
+            language="xml"
+            theme="vs-dark"
+            value={state.xmlContent}
+          />
+        </Modal>
       </div>
     </FlowContext.Provider>
   );
