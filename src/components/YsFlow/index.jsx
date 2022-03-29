@@ -83,10 +83,10 @@ const YsFlow = observer(() => {
         {/* 工具条 */}
         <div className="flow-editor-toolbar">
           <Button style={{ padding: '4px 5px'}} type="link" onClick={previewJSON}>
-            查看JSON
+            查看json
           </Button>
           <Button style={{ padding: '4px 5px'}} type="link" onClick={previewXML}>
-            查看XML
+            查看xml
           </Button>
           <Button
             icon={<MinusOutlined />}
