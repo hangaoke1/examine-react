@@ -24,8 +24,16 @@ jobs:
           npm install
           npm run build
 
-      - name: Deploy 🚀
+      - name: Deploy to gh-pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: dist # The folder the action should deploy.
+
+      - name: Deploy to Surge 🚀
+        uses: dswistowski/surge-sh-action@v1
+        with:
+          domain: 'examine-react-${{ github.sha }}.surge.sh'
+          project: './dist'
+          login: ${{ secrets.SURGE_LOGIN }}
+          token: ${{ secrets.SURGE_TOKEN }}
