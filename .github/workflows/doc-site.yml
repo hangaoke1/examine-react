@@ -4,9 +4,11 @@
 name: Doc Site
 
 on:
+  # 创建并推送release时候触发流程
   release:
     types:
       - published
+  # 支持手动触发流程
   workflow_dispatch:
 
 jobs:
