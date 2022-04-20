@@ -19,17 +19,17 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
-      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+      - name: Install and Build 🔧
         run: |
           npm install
           npm run build
-
+      # 部署到github pages
       - name: Deploy to gh-pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: dist # The folder the action should deploy.
-
+      # 部署到surge
       - name: Deploy to Surge 🚀
         uses: dswistowski/surge-sh-action@v1
         with:
@@ -37,3 +37,9 @@ jobs:
           project: './dist'
           login: ${{ secrets.SURGE_LOGIN }}
           token: ${{ secrets.SURGE_TOKEN }}
+
+      - name: Create Commit Comment
+        uses: peter-evans/commit-comment@v1
+        with:
+          body: |
+            Doc site for this release: examine-react-${{ github.sha }}.surge.sh
